@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrefour St-Pierre — Portail Communautaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rouge: #C0392B;
+    --bleu: #1a3a5c;
+    --or: #D4A843;
+    --creme: #FAF6F0;
+    --gris: #6b7280;
+    --blanc: #ffffff;
+    --ombre: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--bleu);
+  }
+
+  /* HEADER */
+  header {
+    background: var(--bleu);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--or);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    color: var(--blanc);
+    font-size: 1.2rem;
+    line-height: 1.1;
+  }
+  .logo-text span {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--or);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+  nav a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 400;
+  }
+  nav a:hover {
+    color: var(--blanc);
+    background: rgba(255,255,255,0.1);
+  }
+  .nav-cta {
+    background: var(--rouge) !important;
+    color: var(--blanc) !important;
+    font-weight: 500 !important;
+  }
+  .nav-cta:hover {
+    background: #a93226 !important;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--bleu) 0%, #0f2540 100%);
+    color: var(--blanc);
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212,168,67,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(212,168,67,0.2);
+    border: 1px solid rgba(212,168,67,0.4);
+    color: var(--or);
+    font-size: 0.78rem;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    color: var(--or);
+    font-style: normal;
+  }
+  .hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--rouge);
+    color: var(--blanc);
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover { background: #a93226; transform: translateY(-1px); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: var(--blanc);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--or);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .stat-card .label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 4rem 2rem;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(26,58,92,0.1);
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--bleu);
+  }
+  .section-header a {
+    color: var(--rouge);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* ANNONCES */
+  .annonces { background: var(--blanc); }
+  .annonces-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .annonce-card {
+    border: 1px solid rgba(26,58,92,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .annonce-card:hover { transform: translateY(-3px); box-shadow: var(--ombre); }
+  .annonce-img {
+    height: 140px;
+    background: linear-gradient(135deg, var(--bleu), #2c5282);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+  .annonce-body { padding: 1.25rem; }
+  .annonce-tag {
+    display: inline-block;
+    background: rgba(192,57,43,0.1);
+    color: var(--rouge);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+  .annonce-body h3 { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.4; }
+  .annonce-body p { font-size: 0.85rem; color: var(--gris); line-height: 1.5; }
+  .annonce-date { font-size: 0.75rem; color: var(--gris); margin-top: 0.75rem; }
+
+  /* AGENDA */
+  .agenda { background: var(--creme); }
+  .events-list { display: flex; flex-direction: column; gap: 1rem; }
+  .event-item {
+    background: var(--blanc);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid rgba(26,58,92,0.08);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .event-item:hover { box-shadow: var(--ombre); transform: translateX(4px); }
+  .event-date-box {
+    background: var(--bleu);
+    color: var(--blanc);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+  .event-date-box .day { font-family: 'Playfair Display', serif; font-size: 1.6rem; line-height: 1; }
+  .event-date-box .month { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; }
+  .event-info { flex: 1; }
+  .event-info h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .event-info p { font-size: 0.82rem; color: var(--gris); }
+  .event-badge {
+    background: rgba(212,168,67,0.15);
+    color: #8a6a1a;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* RESSOURCES */
+  .ressources { background: var(--blanc); }
+  .ressources-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .ressource-card {
+    background: var(--creme);
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    border: 1px solid rgba(26,58,92,0.08);
+    transition: all 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--bleu);
+    display: block;
+  }
+  .ressource-card:hover { background: var(--bleu); color: var(--blanc); transform: translateY(-3px); box-shadow: var(--ombre); }
+  .ressource-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .ressource-card h3 { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .ressource-card p { font-size: 0.78rem; opacity: 0.65; line-height: 1.4; }
+
+  /* SERVICES */
+  .services { background: var(--creme); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .service-card {
+    background: var(--blanc);
+    border-radius: 14px;
+    padding: 1.75rem;
+    border: 1px solid rgba(26,58,92,0.08);
+    border-left: 4px solid var(--rouge);
+    transition: all 0.2s;
+  }
+  .service-card:hover { box-shadow: var(--ombre); }
+  .service-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .service-card p { font-size: 0.83rem; color: var(--gris); line-height: 1.55; }
+
+  /* FORUM */
+  .forum { background: var(--blanc); }
+  .forum-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .forum-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--creme);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .forum-item:hover { border-color: rgba(26,58,92,0.15); box-shadow: var(--ombre); }
+  .forum-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: var(--blanc);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .forum-content { flex: 1; }
+  .forum-content h4 { font-size: 0.92rem; margin-bottom: 0.2rem; }
+  .forum-content p { font-size: 0.78rem; color: var(--gris); }
+  .forum-meta { font-size: 0.72rem; color: var(--gris); text-align: right; white-space: nowrap; }
+
+  /* CONTACT */
+  .contact {
+    background: linear-gradient(135deg, var(--bleu) 0%, #0f2540 100%);
+    color: var(--blanc);
+    text-align: center;
+  }
+  .contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .contact p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .btn-or {
+    background: var(--or);
+    color: var(--bleu);
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .btn-or:hover { background: #c49a30; transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    background: #0a1929;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.82rem;
+  }
+  footer a { color: var(--or); text-decoration: none; }
+
+  /* GALERIE */
+  .galerie { background: var(--bleu); padding: 4rem 2rem; }
+  .galerie .section-header h2 { color: var(--blanc); }
+  .galerie .section-header { border-bottom-color: rgba(255,255,255,0.15); }
+  .galerie .section-header a { color: var(--or); }
+  .galerie-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .galerie-grid img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: 3px solid transparent;
+  }
+  .galerie-grid img:hover {
+    transform: scale(1.02);
+    border-color: var(--or);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .galerie-grid img:first-child {
+    grid-column: span 2;
+    height: 360px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { display: none; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    .annonces-grid { grid-template-columns: 1fr; }
+    .ressources-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content { animation: fadeUp 0.6s ease forwards; }
+  .hero-stats { animation: fadeUp 0.6s ease 0.2s both; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🤝</div>
+      <div class="logo-text">
+        Carrefour St-Pierre
+        <span>Portail Communautaire</span>
+      </div>
+    </a>
+    <nav>
+      <a href="#annonces">Annonces</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#ressources">Ressources</a>
+      <a href="#services">Services</a>
+      <a href="#forum">Forum</a>
+      <a href="https://fiche.daddyconnectit.com" target="_blank" class="nav-cta">📋 S'inscrire</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">🍁 Saint-Pierre-Jolys, Manitoba</div>
+      <h1>Bienvenue chez <em>Carrefour St-Pierre</em></h1>
+      <p>Votre portail communautaire pour les nouveaux arrivants francophones. Trouvez des ressources, des événements et une communauté chaleureuse pour faciliter votre intégration.</p>
+      <div class="hero-actions">
+        <a href="https://fiche.daddyconnectit.com" target="_blank" class="btn-primary">📋 Remplir ma fiche</a>
+        <a href="#ressources" class="btn-secondary">Découvrir les ressources</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="num">150+</span>
+        <span class="label">Membres</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">12</span>
+        <span class="label">Activités / mois</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">5+</span>
+        <span class="label">Années actifs</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">20+</span>
+        <span class="label">Partenaires</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">100%</span>
+        <span class="label">Francophone</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">🆓</span>
+        <span class="label">Gratuit</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANNONCES -->
+<section class="annonces" id="annonces">
+  <div class="container">
+    <div class="section-header">
+      <h2>📢 Annonces & Nouvelles</h2>
+      <a href="#">Voir tout →</a>
+    </div>
+    <div class="annonces-grid">
+      <div class="annonce-card">
+        <div class="annonce-img">🎉</div>
+        <div class="annonce-body">
+          <span class="annonce-tag">Événement</span>
+          <h3>Fête de bienvenue pour les nouveaux arrivants</h3>
+          <p>Venez rencontrer la communauté lors de notre soirée d'accueil mensuelle avec buffet et musique.</p>
+          <div class="annonce-date">📅 15 mai 2025</div>
+        </div>
+      </div>
+      <div class="annonce-card">
+        <div class="annonce-img" style="background: linear-gradient(135deg, #1a5c3a, #2d9e6b);">📚</div>
+        <div class="annonce-body">
+          <span class="annonce-tag">Formation</span>
+          <h3>Atelier : Chercher un emploi au Manitoba</h3>
+          <p>Conseils pratiques sur la rédaction de CV, lettres de motivation et entrevues d'emploi.</p>
+          <div class="annonce-date">📅 20 mai 2025</div>
+        </div>
+      </div>
+      <div class="annonce-card">
+        <div class="annonce-img" style="background: linear-gradient(135deg, #5c1a1a, #9e2d2d);">🏥</div>
+        <div class="annonce-body">
+          <span class="annonce-tag">Information</span>
+          <h3>Comment accéder aux soins de santé au Manitoba</h3>
+          <p>Guide complet pour s'inscrire à l'assurance-maladie provinciale et trouver un médecin.</p>
+          <div class="annonce-date">📅 1 mai 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section class="agenda" id="agenda">
+  <div class="container">
+    <div class="section-header">
+      <h2>📅 Agenda des Activités</h2>
+      <a href="#">Voir tout →</a>
+    </div>
+    <div class="events-list">
+      <div class="event-item">
+        <div class="event-date-box">
+          <div class="day">15</div>
+          <div class="month">Mai</div>
+        </div>
+        <div class="event-info">
+          <h3>Soirée d'accueil — Nouveaux arrivants</h3>
+          <p>📍 Centre communautaire de St-Pierre-Jolys · 18h00 - 21h00</p>
+        </div>
+        <span class="event-badge">Gratuit</span>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box">
+          <div class="day">20</div>
+          <div class="month">Mai</div>
+        </div>
+        <div class="event-info">
+          <h3>Atelier Emploi & CV</h3>
+          <p>📍 Bibliothèque municipale · 13h00 - 16h00</p>
+        </div>
+        <span class="event-badge">Inscription requise</span>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box">
+          <div class="day">24</div>
+          <div class="month">Mai</div>
+        </div>
+        <div class="event-info">
+          <h3>Cours de français — Niveau intermédiaire</h3>
+          <p>📍 En ligne (Zoom) · 10h00 - 11h30</p>
+        </div>
+        <span class="event-badge">Gratuit</span>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box">
+          <div class="day">1</div>
+          <div class="month">Juin</div>
+        </div>
+        <div class="event-info">
+          <h3>Pique-nique culturel de la communauté</h3>
+          <p>📍 Parc municipal · 12h00 - 17h00</p>
+        </div>
+        <span class="event-badge">Famille bienvenue</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESSOURCES -->
+<section class="ressources" id="ressources">
+  <div class="container">
+    <div class="section-header">
+      <h2>📖 Ressources d'Intégration</h2>
+      <a href="#">Voir tout →</a>
+    </div>
+    <div class="ressources-grid">
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">🏥</span>
+        <h3>Santé</h3>
+        <p>Assurance-maladie, médecins, pharmacies</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">🏫</span>
+        <h3>Éducation</h3>
+        <p>Écoles, garderies, cours de langue</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">💼</span>
+        <h3>Emploi</h3>
+        <p>Recherche d'emploi, reconnaissance des diplômes</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">🏠</span>
+        <h3>Logement</h3>
+        <p>Location, droits des locataires, aide au logement</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">🚗</span>
+        <h3>Transport</h3>
+        <p>Permis de conduire, transports en commun</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">📋</span>
+        <h3>Immigration</h3>
+        <p>Documents, résidence permanente, citoyenneté</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">💰</span>
+        <h3>Finances</h3>
+        <p>Banques, impôts, prestations gouvernementales</p>
+      </a>
+      <a href="#" class="ressource-card">
+        <span class="ressource-icon">⚖️</span>
+        <h3>Droits & Lois</h3>
+        <p>Aide juridique, droits des travailleurs</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header">
+      <h2>🤝 Répertoire de Services</h2>
+      <a href="#">Suggérer un service →</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>🏛️ Services gouvernementaux</h3>
+        <p>Immigration, Réfugiés et Citoyenneté Canada (IRCC), Service Canada, Gouvernement du Manitoba.</p>
+      </div>
+      <div class="service-card">
+        <h3>🗣️ Traduction & Interprétation</h3>
+        <p>Services de traduction de documents officiels et d'interprétation pour vos rendez-vous importants.</p>
+      </div>
+      <div class="service-card">
+        <h3>📞 Ligne d'écoute communautaire</h3>
+        <p>Besoin d'aide ou d'orientation ? Notre équipe bénévole est disponible pour vous guider.</p>
+      </div>
+      <div class="service-card">
+        <h3>👨‍👩‍👧 Services aux familles</h3>
+        <p>Aide à la recherche de garderies, inscriptions scolaires et activités parascolaires pour vos enfants.</p>
+      </div>
+      <div class="service-card">
+        <h3>💻 Aide numérique</h3>
+        <p>Assistance pour naviguer sur les sites gouvernementaux, remplir des formulaires en ligne et utiliser les services numériques.</p>
+      </div>
+      <div class="service-card">
+        <h3>🍽️ Aide alimentaire</h3>
+        <p>Banques alimentaires locales, cuisines communautaires et programmes d'aide aux repas pour les familles dans le besoin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORUM -->
+<section class="forum" id="forum">
+  <div class="container">
+    <div class="section-header">
+      <h2>💬 Forum Communautaire</h2>
+      <a href="#">Voir tout →</a>
+    </div>
+    <div class="forum-list">
+      <div class="forum-item">
+        <div class="forum-avatar">MA</div>
+        <div class="forum-content">
+          <h4>Comment transférer mon permis de conduire étranger au Manitoba ?</h4>
+          <p>Répondu par 3 membres · Emploi & Documents</p>
+        </div>
+        <div class="forum-meta">Il y a 2h<br>💬 8 réponses</div>
+      </div>
+      <div class="forum-item">
+        <div class="forum-avatar" style="background: var(--rouge);">SB</div>
+        <div class="forum-content">
+          <h4>Quels documents pour inscrire mon enfant à l'école francophone ?</h4>
+          <p>Répondu par 5 membres · Éducation</p>
+        </div>
+        <div class="forum-meta">Il y a 1 jour<br>💬 12 réponses</div>
+      </div>
+      <div class="forum-item">
+        <div class="forum-avatar" style="background: #1a5c3a;">LK</div>
+        <div class="forum-content">
+          <h4>Recommandation de médecin francophone à Winnipeg ?</h4>
+          <p>Répondu par 7 membres · Santé</p>
+        </div>
+        <div class="forum-meta">Il y a 3 jours<br>💬 15 réponses</div>
+      </div>
+      <div class="forum-item">
+        <div class="forum-avatar" style="background: #5c4a1a;">RD</div>
+        <div class="forum-content">
+          <h4>Partage d'expérience : Trouver un logement à St-Pierre</h4>
+          <p>Répondu par 4 membres · Logement</p>
+        </div>
+        <div class="forum-meta">Il y a 5 jours<br>💬 9 réponses</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="galerie" id="galerie">
+  <div class="container">
+    <div class="section-header">
+      <h2>📸 Notre Communauté en Photos</h2>
+      <a href="#">Voir tout →</a>
+    </div>
+    <div class="galerie-grid">
+      <img src="photo4.png" alt="Rassemblement communautaire Carrefour St-Pierre">
+      <img src="photo1.png" alt="Membres de la communauté francophone">
+      <img src="photo2.png" alt="Rencontre de la communauté">
+      <img src="photo3.png" alt="Activité communautaire">
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2>Rejoignez notre communauté !</h2>
+    <p>Remplissez votre fiche d'inscription pour accéder à tous nos services et être informé des prochaines activités.</p>
+    <div class="contact-actions">
+      <a href="https://fiche.daddyconnectit.com" target="_blank" class="btn-or">📋 Remplir ma fiche d'inscription</a>
+      <a href="mailto:info@carrefourstpierre.com" class="btn-secondary">✉️ Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Carrefour St-Pierre · Saint-Pierre-Jolys, Manitoba · 
+  <a href="mailto:info@carrefourstpierre.com">info@carrefourstpierre.com</a> · 
+  <a href="https://carrefourstpierre.com">carrefourstpierre.com</a></p>
+</footer>
+
+</body>
+</html>
